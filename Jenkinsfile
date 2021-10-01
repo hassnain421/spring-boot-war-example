@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools
+    {
+       maven "maven3.8.2"
+    }
 
     stages {
 	    stage('checkout') {
@@ -10,10 +14,8 @@ pipeline {
      	stage('Execute Maven') {
 
             steps {
-            def maventool = tool name: 'maven3.8.2', type: 'maven'
-                    withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
                 sh 'mvn clean install'
-                    }
+                    
                 }
              }
 	
