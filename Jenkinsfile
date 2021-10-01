@@ -15,16 +15,13 @@ pipeline {
 
             steps {
         //    def maventool = tool name: 'maven3.8.2', type: 'maven'
-                  //  withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
-	//	    withMaven(maven: 'maven3.8.2') {
-			    
-         //      sh 'mvn clean package'
+          //    withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {   
+         //     sh 'mvn clean package'
            //         }
 		 git url: 'https://github.com/hassnain421/spring-boot-war-example.git'
   		 withEnv(["PATH+MAVEN=${tool 'maven3.8.2'}/bin"]) {
 		 sh '${MAVEN_HOME}/bin/mvn -B verify'
-     		 sh 'mvn clean package'
-   }
+             }
                 }
              }
 	
