@@ -7,14 +7,14 @@ pipeline {
             git branch: 'master', url: 'https://github.com/hassnain421/spring-boot-war-example.git'
          }
         }
-      	stage('Execute Maven') {
-            steps {   
+     	stage('Execute Maven') {
+
+            steps {
             def maventool = tool name: 'maven', type: 'maven'
                     withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
                 sh 'mvn clean install'
                     }
                 }
-           
              }
 	
         stage('Docker Build and Tag') {
