@@ -3,7 +3,8 @@ pipeline {
 	
     tools
     {
-       maven "maven3.8.2"
+       maven "maven"
+       jdk 'java'
     }
     stages {
 	    stage('checkout') {
@@ -12,17 +13,13 @@ pipeline {
          }
         }
       	stage('Execute Maven') {
-
-            steps {
-        //    def maventool = tool name: 'maven3.8.2', type: 'maven'
-          //    withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {   
-         //     sh 'mvn clean package'
-           //         }
-		 git url: 'https://github.com/hassnain421/spring-boot-war-example.git'
-  		 withEnv(["PATH+MAVEN=${tool 'maven3.8.2'}/bin"]) {
-		 sh '${MAVEN_HOME}/bin/mvn -B verify'
-             }
+            steps {   
+            def maventool = tool name: 'maven', type: 'maven'
+                    withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
+                sh 'mvn clean install'
+                    }
                 }
+           
              }
 	
         stage('Docker Build and Tag') {
