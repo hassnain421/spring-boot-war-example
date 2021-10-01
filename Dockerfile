@@ -2,7 +2,7 @@ FROM tomcat:latest
 
 LABEL maintainer="CICD-using-docker"
 
-ADD ./target/LoginWebApp-1.war /usr/local/tomcat/webapps/
+ADD ./target/*.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
 
