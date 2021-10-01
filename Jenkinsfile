@@ -13,9 +13,13 @@ pipeline {
              
           }
         }
-	    stage('Execute Maven') {
+      stage('Execute Maven') {
+
            steps {
-		   sh 'mvn clean package'             
+		  def maventool = tool name: 'maven', type: 'maven'
+                  withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
+			sh 'mvn clean package'
+			  }
 	         }
          }
         
