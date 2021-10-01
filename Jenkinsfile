@@ -7,23 +7,21 @@ pipeline {
     }
     stages {
 	    stage('checkout')
-	    steps {
-             
-                git branch: 'master', url: 'https://github.com/hassnain421/spring-boot-war-example.git'
-             
-          }
+	        steps {
+            git branch: 'master', url: 'https://github.com/hassnain421/spring-boot-war-example.git'
+         }
         }
-      	    stage('Execute Maven') {
+      	stage('Execute Maven') {
 
-	    steps {
-		  def maventool = tool name: 'maven3.8.2', type: 'maven'
-                  withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
-			sh 'mvn clean package'
-			  }
-           	  }
-                 }
+            steps {
+            def maventool = tool name: 'maven3.8.2', type: 'maven'
+                    withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
+                sh 'mvn clean package'
+                    }
+                }
+             }
 	
-            stage('Docker Build and Tag') {
+        stage('Docker Build and Tag') {
             steps {
               
                 sh 'docker build -t samplewebapp:latest .' 
@@ -31,17 +29,17 @@ pipeline {
                   }
                }
      
-          stage('Publish image to Docker Hub') {
+        stage('Publish image to Docker Hub') {
           
             steps {
-		    withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-                    sh  'docker push hassnain421/samplewebapp:latest'
-                 }
-                  
+                withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+                        sh  'docker push hassnain421/samplewebapp:latest'
+                    }
+                    
                  }
               }
      
-          stage('Run Docker container on Jenkins Agent') {
+        stage('Run Docker container on Jenkins Agent') {
              
             steps 
 			  {
@@ -49,7 +47,7 @@ pipeline {
  
             }
         }
-          stage('Run Docker container on remote hosts') {
+        stage('Run Docker container on remote hosts') {
              
             steps {
                 sh "docker -H ssh://root@167.71.110.22 run -d -p 8003:8080 hassnain421/samplewebapp:latest"
