@@ -9,7 +9,7 @@ pipeline {
       stage('checkout') {
            steps {
              
-                git branch: 'master', url: 'https://github.com/hassnain421/CICD-using-docker.git'
+                git branch: 'master', url: 'https://github.com/hassnain421/spring-boot-war-example.git'
              
           }
         }
