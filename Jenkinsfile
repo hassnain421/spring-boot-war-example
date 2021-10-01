@@ -6,7 +6,7 @@ pipeline {
        maven "maven3.8.2"
     }
     stages {
-	    stage('checkout')
+	    stage('checkout') {
 	        steps {
             git branch: 'master', url: 'https://github.com/hassnain421/spring-boot-war-example.git'
          }
@@ -15,7 +15,7 @@ pipeline {
 
             steps {
             def maventool = tool name: 'maven3.8.2', type: 'maven'
-            withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
+                    withEnv( ["PATH+MAVENTOOL=${maventool}/bin"] ) {
                 sh 'mvn clean package'
                     }
                 }
@@ -54,4 +54,5 @@ pipeline {
  
             }
         }
+    }
 }
