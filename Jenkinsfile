@@ -16,11 +16,8 @@ pipeline {
      	stage('Execute Maven') {
 
             steps {
- //               sh 'mvn clean install'
+               sh 'mvn -B -DskipTests clean package'
 
-            sh '''
-                    echo "PATH = ${PATH}"
-                ''' 
                 }
              }
 	
